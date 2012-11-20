@@ -1,8 +1,8 @@
-#include "inc/hw_nvic.h"
-#include "inc/hw_types.h"
-#include "inc/hw_memmap.h"
-#include "inc/hw_sysctl.h"
-#include "inc/hw_gpio.h"
+#include <ti/hw_nvic.h>
+#include <ti/hw_types.h>
+#include <ti/hw_memmap.h>
+#include <ti/hw_sysctl.h>
+#include <ti/hw_gpio.h>
 
 extern int main(void);
 
