@@ -125,40 +125,6 @@ extern "C"
 
 //*****************************************************************************
 //
-// API Function prototypes
-//
-//*****************************************************************************
-extern void I2STxEnable(unsigned long ulBase);
-extern void I2STxDisable(unsigned long ulBase);
-extern void I2STxDataPut(unsigned long ulBase, unsigned long ulData);
-extern long I2STxDataPutNonBlocking(unsigned long ulBase,
-                                    unsigned long ulData);
-extern void I2STxConfigSet(unsigned long ulBase, unsigned long ulConfig);
-extern void I2STxFIFOLimitSet(unsigned long ulBase, unsigned long ulLevel);
-extern unsigned long I2STxFIFOLimitGet(unsigned long ulBase);
-extern unsigned long I2STxFIFOLevelGet(unsigned long ulBase);
-extern void I2SRxEnable(unsigned long ulBase);
-extern void I2SRxDisable(unsigned long ulBase);
-extern void I2SRxDataGet(unsigned long ulBase, unsigned long *pulData);
-extern long I2SRxDataGetNonBlocking(unsigned long ulBase,
-                                    unsigned long *pulData);
-extern void I2SRxConfigSet(unsigned long ulBase, unsigned long ulConfig);
-extern void I2SRxFIFOLimitSet(unsigned long ulBase, unsigned long ulLevel);
-extern unsigned long I2SRxFIFOLimitGet(unsigned long ulBase);
-extern unsigned long I2SRxFIFOLevelGet(unsigned long ulBase);
-extern void I2STxRxEnable(unsigned long ulBase);
-extern void I2STxRxDisable(unsigned long ulBase);
-extern void I2STxRxConfigSet(unsigned long ulBase, unsigned long ulConfig);
-extern void I2SMasterClockSelect(unsigned long ulBase, unsigned long ulMClock);
-extern void I2SIntEnable(unsigned long ulBase, unsigned long ulIntFlags);
-extern void I2SIntDisable(unsigned long ulBase, unsigned long ulIntFlags);
-extern unsigned long I2SIntStatus(unsigned long ulBase, tBoolean bMasked);
-extern void I2SIntClear(unsigned long ulBase, unsigned long ulIntFlags);
-extern void I2SIntRegister(unsigned long ulBase, void (*pfnHandler)(void));
-extern void I2SIntUnregister(unsigned long ulBase);
-
-//*****************************************************************************
-//
 // Mark the end of the C bindings section for C++ compilers.
 //
 //*****************************************************************************

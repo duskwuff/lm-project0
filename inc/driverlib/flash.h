@@ -81,41 +81,6 @@ tFlashProtection;
 
 //*****************************************************************************
 //
-// Prototypes for the APIs.
-//
-//*****************************************************************************
-extern unsigned long FlashUsecGet(void);
-extern void FlashUsecSet(unsigned long ulClocks);
-extern long FlashErase(unsigned long ulAddress);
-extern long FlashProgram(unsigned long *pulData, unsigned long ulAddress,
-                         unsigned long ulCount);
-extern tFlashProtection FlashProtectGet(unsigned long ulAddress);
-extern long FlashProtectSet(unsigned long ulAddress,
-                            tFlashProtection eProtect);
-extern long FlashProtectSave(void);
-extern long FlashUserGet(unsigned long *pulUser0, unsigned long *pulUser1);
-extern long FlashUserSet(unsigned long ulUser0, unsigned long ulUser1);
-extern long FlashUserSave(void);
-extern void FlashIntRegister(void (*pfnHandler)(void));
-extern void FlashIntUnregister(void);
-extern void FlashIntEnable(unsigned long ulIntFlags);
-extern void FlashIntDisable(unsigned long ulIntFlags);
-extern unsigned long FlashIntStatus(tBoolean bMasked);
-extern void FlashIntClear(unsigned long ulIntFlags);
-
-//*****************************************************************************
-//
-// Deprecated function names.  These definitions ensure backwards compatibility
-// but new code should avoid using deprecated function names since these will
-// be removed at some point in the future.
-//
-//*****************************************************************************
-#ifndef DEPRECATED
-#define FlashIntGetStatus       FlashIntStatus
-#endif
-
-//*****************************************************************************
-//
 // Mark the end of the C bindings section for C++ compilers.
 //
 //*****************************************************************************

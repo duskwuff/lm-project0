@@ -575,63 +575,6 @@ extern "C"
 
 //*****************************************************************************
 //
-// Prototypes for the APIs.
-//
-//*****************************************************************************
-extern unsigned long SysCtlSRAMSizeGet(void);
-extern unsigned long SysCtlFlashSizeGet(void);
-extern tBoolean SysCtlPinPresent(unsigned long ulPin);
-extern tBoolean SysCtlPeripheralPresent(unsigned long ulPeripheral);
-extern tBoolean SysCtlPeripheralReady(unsigned long ulPeripheral);
-extern void SysCtlPeripheralPowerOn(unsigned long ulPeripheral);
-extern void SysCtlPeripheralPowerOff(unsigned long ulPeripheral);
-extern void SysCtlPeripheralReset(unsigned long ulPeripheral);
-extern void SysCtlPeripheralEnable(unsigned long ulPeripheral);
-extern void SysCtlPeripheralDisable(unsigned long ulPeripheral);
-extern void SysCtlPeripheralSleepEnable(unsigned long ulPeripheral);
-extern void SysCtlPeripheralSleepDisable(unsigned long ulPeripheral);
-extern void SysCtlPeripheralDeepSleepEnable(unsigned long ulPeripheral);
-extern void SysCtlPeripheralDeepSleepDisable(unsigned long ulPeripheral);
-extern void SysCtlPeripheralClockGating(tBoolean bEnable);
-extern void SysCtlIntRegister(void (*pfnHandler)(void));
-extern void SysCtlIntUnregister(void);
-extern void SysCtlIntEnable(unsigned long ulInts);
-extern void SysCtlIntDisable(unsigned long ulInts);
-extern void SysCtlIntClear(unsigned long ulInts);
-extern unsigned long SysCtlIntStatus(tBoolean bMasked);
-extern void SysCtlLDOSet(unsigned long ulVoltage);
-extern unsigned long SysCtlLDOGet(void);
-extern void SysCtlLDOConfigSet(unsigned long ulConfig);
-extern void SysCtlReset(void);
-extern void SysCtlSleep(void);
-extern void SysCtlDeepSleep(void);
-extern unsigned long SysCtlResetCauseGet(void);
-extern void SysCtlResetCauseClear(unsigned long ulCauses);
-extern void SysCtlBrownOutConfigSet(unsigned long ulConfig,
-                                    unsigned long ulDelay);
-extern void SysCtlDelay(unsigned long ulCount);
-extern void SysCtlMOSCConfigSet(unsigned long ulConfig);
-extern unsigned long SysCtlPIOSCCalibrate(unsigned long ulType);
-extern void SysCtlClockSet(unsigned long ulConfig);
-extern unsigned long SysCtlClockGet(void);
-extern void SysCtlDeepSleepClockSet(unsigned long ulConfig);
-extern void SysCtlPWMClockSet(unsigned long ulConfig);
-extern unsigned long SysCtlPWMClockGet(void);
-extern void SysCtlADCSpeedSet(unsigned long ulSpeed);
-extern unsigned long SysCtlADCSpeedGet(void);
-extern void SysCtlIOSCVerificationSet(tBoolean bEnable);
-extern void SysCtlMOSCVerificationSet(tBoolean bEnable);
-extern void SysCtlPLLVerificationSet(tBoolean bEnable);
-extern void SysCtlClkVerificationClear(void);
-extern void SysCtlGPIOAHBEnable(unsigned long ulGPIOPeripheral);
-extern void SysCtlGPIOAHBDisable(unsigned long ulGPIOPeripheral);
-extern void SysCtlUSBPLLEnable(void);
-extern void SysCtlUSBPLLDisable(void);
-extern unsigned long SysCtlI2SMClkSet(unsigned long ulInputClock,
-                                      unsigned long ulMClk);
-
-//*****************************************************************************
-//
 // Mark the end of the C bindings section for C++ compilers.
 //
 //*****************************************************************************

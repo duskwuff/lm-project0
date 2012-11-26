@@ -176,36 +176,6 @@ extern "C"
 
 //*****************************************************************************
 //
-// API Function prototypes
-//
-//*****************************************************************************
-extern void FanChannelEnable(unsigned long ulBase, unsigned long ulChannel);
-extern void FanChannelDisable(unsigned long ulBase, unsigned long ulChannel);
-extern unsigned long FanChannelStatus(unsigned long ulBase,
-                                      unsigned long ulChannel);
-extern void FanChannelConfigManual(unsigned long ulBase, 
-                                   unsigned long ulChannel,
-                                   unsigned long ulConfig);
-extern void FanChannelConfigAuto(unsigned long ulBase, unsigned long ulChannel,
-                                 unsigned long ulConfig);
-extern void FanChannelDutySet(unsigned long ulBase, unsigned long ulChannel,
-                              unsigned long ulDuty);
-extern unsigned long FanChannelDutyGet(unsigned long ulBase,
-                                       unsigned long ulChannel);
-extern void FanChannelRPMSet(unsigned long ulBase, unsigned long ulChannel,
-                             unsigned long ulRPM);
-extern unsigned long FanChannelRPMGet(unsigned long ulBase,
-                                      unsigned long ulChannel);
-extern void FanIntEnable(unsigned long ulBase, unsigned long ulFlags);
-extern void FanIntDisable(unsigned long ulBase, unsigned long ulFlags);
-extern unsigned long FanIntStatus(unsigned long ulBase, tBoolean bMasked);
-extern void FanIntClear(unsigned long ulBase, unsigned long ulFlags);
-extern void FanIntRegister(unsigned long ulBase, void (*pfnHandler)(void));
-extern void FanIntUnregister(unsigned long ulBase);
-extern unsigned long FanChannelsGet(unsigned long ulBase);
-
-//*****************************************************************************
-//
 // Mark the end of the C bindings section for C++ compilers.
 //
 //*****************************************************************************

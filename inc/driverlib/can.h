@@ -406,48 +406,6 @@ tMsgObjType;
 
 //*****************************************************************************
 //
-// API Function prototypes
-//
-//*****************************************************************************
-extern void CANBitTimingGet(unsigned long ulBase, tCANBitClkParms *pClkParms);
-extern void CANBitTimingSet(unsigned long ulBase, tCANBitClkParms *pClkParms);
-extern unsigned long CANBitRateSet(unsigned long ulBase,
-                                   unsigned long ulSourceClock,
-                                   unsigned long ulBitRate);
-extern void CANDisable(unsigned long ulBase);
-extern void CANEnable(unsigned long ulBase);
-extern tBoolean CANErrCntrGet(unsigned long ulBase, unsigned long *pulRxCount,
-                              unsigned long *pulTxCount);
-extern void CANInit(unsigned long ulBase);
-extern void CANIntClear(unsigned long ulBase, unsigned long ulIntClr);
-extern void CANIntDisable(unsigned long ulBase, unsigned long ulIntFlags);
-extern void CANIntEnable(unsigned long ulBase, unsigned long ulIntFlags);
-extern void CANIntRegister(unsigned long ulBase, void (*pfnHandler)(void));
-extern unsigned long CANIntStatus(unsigned long ulBase,
-                                  tCANIntStsReg eIntStsReg);
-extern void CANIntUnregister(unsigned long ulBase);
-extern void CANMessageClear(unsigned long ulBase, unsigned long ulObjID);
-extern void CANMessageGet(unsigned long ulBase, unsigned long ulObjID,
-                          tCANMsgObject *pMsgObject, tBoolean bClrPendingInt);
-extern void CANMessageSet(unsigned long ulBase, unsigned long ulObjID,
-                          tCANMsgObject *pMsgObject, tMsgObjType eMsgType);
-extern tBoolean CANRetryGet(unsigned long ulBase);
-extern void CANRetrySet(unsigned long ulBase, tBoolean bAutoRetry);
-extern unsigned long CANStatusGet(unsigned long ulBase, tCANStsReg eStatusReg);
-
-//*****************************************************************************
-//
-// Several CAN APIs have been renamed, with the original function name being
-// deprecated.  These defines provide backward compatibility.
-//
-//*****************************************************************************
-#ifndef DEPRECATED
-#define CANSetBitTiming(a, b)   CANBitTimingSet(a, b)
-#define CANGetBitTiming(a, b)   CANBitTimingGet(a, b)
-#endif
-
-//*****************************************************************************
-//
 // Mark the end of the C bindings section for C++ compilers.
 //
 //*****************************************************************************

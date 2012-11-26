@@ -103,60 +103,6 @@ extern "C"
 
 //*****************************************************************************
 //
-// API Function prototypes
-//
-//*****************************************************************************
-extern void HibernateGPIORetentionEnable(void);
-extern void HibernateGPIORetentionDisable(void);
-extern tBoolean HibernateGPIORetentionGet(void);
-extern void HibernateEnableExpClk(unsigned long ulHibClk);
-extern void HibernateDisable(void);
-extern void HibernateClockSelect(unsigned long ulClockInput);
-extern void HibernateRTCEnable(void);
-extern void HibernateRTCDisable(void);
-extern void HibernateWakeSet(unsigned long ulWakeFlags);
-extern unsigned long HibernateWakeGet(void);
-extern void HibernateLowBatSet(unsigned long ulLowBatFlags);
-extern unsigned long HibernateLowBatGet(void);
-extern void HibernateRTCSet(unsigned long ulRTCValue);
-extern unsigned long HibernateRTCGet(void);
-extern void HibernateRTCMatch0Set(unsigned long ulMatch);
-extern unsigned long HibernateRTCMatch0Get(void);
-extern void HibernateRTCMatch1Set(unsigned long ulMatch);
-extern unsigned long HibernateRTCMatch1Get(void);
-extern void HibernateRTCTrimSet(unsigned long ulTrim);
-extern unsigned long HibernateRTCTrimGet(void);
-extern void HibernateDataSet(unsigned long *pulData, unsigned long ulCount);
-extern void HibernateDataGet(unsigned long *pulData, unsigned long ulCount);
-extern void HibernateRequest(void);
-extern void HibernateIntEnable(unsigned long ulIntFlags);
-extern void HibernateIntDisable(unsigned long ulIntFlags);
-extern void HibernateIntRegister(void (*pfnHandler)(void));
-extern void HibernateIntUnregister(void);
-extern unsigned long HibernateIntStatus(tBoolean bMasked);
-extern void HibernateIntClear(unsigned long ulIntFlags);
-extern unsigned long HibernateIsActive(void);
-extern void HibernateRTCSSMatch0Set(unsigned long ulMatch);
-extern unsigned long HibernateRTCSSMatch0Get(void);
-extern unsigned long HibernateRTCSSGet(void);
-extern void HibernateClockConfig(unsigned long ulConfig);
-extern void HibernateBatCheckStart(void);
-extern unsigned long HibernateBatCheckDone(void);
-
-//*****************************************************************************
-//
-// Several Hibernate module APIs have been renamed, with the original function
-// name being deprecated.  These defines provide backward compatibility.
-//
-//*****************************************************************************
-#ifndef DEPRECATED
-#include "driverlib/sysctl.h"
-#define HibernateEnable(a)                         \
-        HibernateEnableExpClk(a, SysCtlClockGet())
-#endif
-
-//*****************************************************************************
-//
 // Mark the end of the C bindings section for C++ compilers.
 //
 //*****************************************************************************

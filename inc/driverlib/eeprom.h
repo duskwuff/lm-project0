@@ -229,39 +229,6 @@ extern "C"
 
 //*****************************************************************************
 //
-// Prototypes for the APIs.
-//
-//*****************************************************************************
-extern unsigned long EEPROMInit(void);
-extern unsigned long EEPROMSizeGet(void);
-extern unsigned long EEPROMBlockCountGet(void);
-extern void EEPROMRead(unsigned long *pulData, unsigned long ulAddress,
-                       unsigned long ulCount);
-extern unsigned long EEPROMProgram(unsigned long *pulData,
-                                   unsigned long ulAddress,
-                                   unsigned long ulCount);
-extern unsigned long EEPROMProgramNonBlocking(unsigned long ulData,
-                                              unsigned long ulAddress);
-extern unsigned long EEPROMStatusGet(void);
-extern unsigned long EEPROMMassErase(void);
-extern unsigned long EEPROMBlockProtectGet(unsigned long ulBlock);
-extern unsigned long EEPROMBlockProtectSet(unsigned long ulBlock,
-                                           unsigned long ulProtect);
-extern unsigned long EEPROMBlockPasswordSet(unsigned long ulBlock,
-                                            unsigned long *pulPassword,
-                                            unsigned long ulCount);
-extern unsigned long EEPROMBlockLock(unsigned long ulBlock);
-extern unsigned long EEPROMBlockUnlock(unsigned long ulBlock,
-                                       unsigned long *pulPassword,
-                                       unsigned long ulCount);
-extern void EEPROMBlockHide(unsigned long ulBlock);
-extern void EEPROMIntEnable(unsigned long ulIntFlags);
-extern void EEPROMIntDisable(unsigned long ulIntFlags);
-extern unsigned long EEPROMIntStatus(tBoolean bMasked);
-extern void EEPROMIntClear(unsigned long ulIntFlags);
-
-//*****************************************************************************
-//
 // Close the Doxygen group.
 //! @}
 //

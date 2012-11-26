@@ -120,63 +120,6 @@ extern "C"
 
 //*****************************************************************************
 //
-// API Function prototypes
-//
-//*****************************************************************************
-extern void EthernetInitExpClk(unsigned long ulBase, unsigned long ulEthClk);
-extern void EthernetConfigSet(unsigned long ulBase, unsigned long ulConfig);
-extern unsigned long EthernetConfigGet(unsigned long ulBase);
-extern void EthernetMACAddrSet(unsigned long ulBase,
-                               unsigned char *pucMACAddr);
-extern void EthernetMACAddrGet(unsigned long ulBase,
-                               unsigned char *pucMACAddr);
-extern void EthernetEnable(unsigned long ulBase);
-extern void EthernetDisable(unsigned long ulBase);
-extern tBoolean EthernetPacketAvail(unsigned long ulBase);
-extern tBoolean EthernetSpaceAvail(unsigned long ulBase);
-extern long EthernetPacketGetNonBlocking(unsigned long ulBase,
-                                         unsigned char *pucBuf,
-                                         long lBufLen);
-extern long EthernetPacketGet(unsigned long ulBase, unsigned char *pucBuf,
-                              long lBufLen);
-extern long EthernetPacketPutNonBlocking(unsigned long ulBase,
-                                         unsigned char *pucBuf,
-                                         long lBufLen);
-extern long EthernetPacketPut(unsigned long ulBase, unsigned char *pucBuf,
-                              long lBufLen);
-extern void EthernetIntRegister(unsigned long ulBase,
-                                void (*pfnHandler)(void));
-extern void EthernetIntUnregister(unsigned long ulBase);
-extern void EthernetIntEnable(unsigned long ulBase, unsigned long ulIntFlags);
-extern void EthernetIntDisable(unsigned long ulBase, unsigned long ulIntFlags);
-extern unsigned long EthernetIntStatus(unsigned long ulBase, tBoolean bMasked);
-extern void EthernetIntClear(unsigned long ulBase, unsigned long ulIntFlags);
-extern void EthernetPHYAddrSet(unsigned long ulBase, unsigned char ucAddr);
-extern void EthernetPHYWrite(unsigned long ulBase, unsigned char ucRegAddr,
-                             unsigned long ulData);
-extern unsigned long EthernetPHYRead(unsigned long ulBase,
-                                     unsigned char ucRegAddr);
-extern void EthernetPHYPowerOff(unsigned long ulBase);
-extern void EthernetPHYPowerOn(unsigned long ulBase);
-
-//*****************************************************************************
-//
-// Several Ethernet APIs have been renamed, with the original function name
-// being deprecated.  These defines provide backward compatibility.
-//
-//*****************************************************************************
-#ifndef DEPRECATED
-#include "driverlib/sysctl.h"
-#define EthernetInit(a)                         \
-        EthernetInitExpClk(a, SysCtlClockGet())
-#define EthernetPacketNonBlockingGet(a, b, c) \
-        EthernetPacketGetNonBlocking(a, b, c)
-#define EthernetPacketNonBlockingPut(a, b, c) \
-        EthernetPacketPutNonBlocking(a, b, c)
-#endif
-
-//*****************************************************************************
-//
 // Mark the end of the C bindings section for C++ compilers.
 //
 //*****************************************************************************

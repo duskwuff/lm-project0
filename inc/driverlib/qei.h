@@ -92,31 +92,6 @@ extern "C"
 
 //*****************************************************************************
 //
-// Prototypes for the APIs.
-//
-//*****************************************************************************
-extern void QEIEnable(unsigned long ulBase);
-extern void QEIDisable(unsigned long ulBase);
-extern void QEIConfigure(unsigned long ulBase, unsigned long ulConfig,
-                         unsigned long ulMaxPosition);
-extern unsigned long QEIPositionGet(unsigned long ulBase);
-extern void QEIPositionSet(unsigned long ulBase, unsigned long ulPosition);
-extern long QEIDirectionGet(unsigned long ulBase);
-extern tBoolean QEIErrorGet(unsigned long ulBase);
-extern void QEIVelocityEnable(unsigned long ulBase);
-extern void QEIVelocityDisable(unsigned long ulBase);
-extern void QEIVelocityConfigure(unsigned long ulBase, unsigned long ulPreDiv,
-                                 unsigned long ulPeriod);
-extern unsigned long QEIVelocityGet(unsigned long ulBase);
-extern void QEIIntRegister(unsigned long ulBase, void (*pfnHandler)(void));
-extern void QEIIntUnregister(unsigned long ulBase);
-extern void QEIIntEnable(unsigned long ulBase, unsigned long ulIntFlags);
-extern void QEIIntDisable(unsigned long ulBase, unsigned long ulIntFlags);
-extern unsigned long QEIIntStatus(unsigned long ulBase, tBoolean bMasked);
-extern void QEIIntClear(unsigned long ulBase, unsigned long ulIntFlags);
-
-//*****************************************************************************
-//
 // Mark the end of the C bindings section for C++ compilers.
 //
 //*****************************************************************************

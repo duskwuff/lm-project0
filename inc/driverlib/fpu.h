@@ -87,21 +87,6 @@ extern "C"
 
 //*****************************************************************************
 //
-// Prototypes.
-//
-//*****************************************************************************
-extern void FPUEnable(void);
-extern void FPUDisable(void);
-extern void FPUStackingEnable(void);
-extern void FPULazyStackingEnable(void);
-extern void FPUStackingDisable(void);
-extern void FPUHalfPrecisionModeSet(unsigned long ulMode);
-extern void FPUNaNModeSet(unsigned long ulMode);
-extern void FPUFlushToZeroModeSet(unsigned long ulMode);
-extern void FPURoundingModeSet(unsigned long ulMode);
-
-//*****************************************************************************
-//
 // Mark the end of the C bindings section for C++ compilers.
 //
 //*****************************************************************************

@@ -67,18 +67,6 @@ extern "C"
 
 //*****************************************************************************
 //
-// Prototypes.
-//
-//*****************************************************************************
-extern void SysExcIntRegister(void (*pfnHandler)(void));
-extern void SysExcIntUnregister(void);
-extern void SysExcIntEnable(unsigned long ulIntFlags);
-extern void SysExcIntDisable(unsigned long ulIntFlags);
-extern unsigned long SysExcIntStatus(tBoolean bMasked);
-extern void SysExcIntClear(unsigned long ulIntFlags);
-
-//*****************************************************************************
-//
 // Mark the end of the C bindings section for C++ compilers.
 //
 //*****************************************************************************

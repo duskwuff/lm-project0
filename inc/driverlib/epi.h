@@ -231,54 +231,6 @@ extern "C"
 
 //*****************************************************************************
 //
-// API Function prototypes
-//
-//*****************************************************************************
-extern void EPIModeSet(unsigned long ulBase, unsigned long ulMode);
-extern void EPIDividerSet(unsigned long ulBase, unsigned long ulDivider);
-extern void EPIConfigSDRAMSet(unsigned long ulBase, unsigned long ulConfig,
-                              unsigned long ulRefresh);
-extern void EPIConfigGPModeSet(unsigned long ulBase, unsigned long ulConfig,
-                               unsigned long ulFrameCount,
-                               unsigned long ulMaxWait);
-extern void EPIConfigHB8Set(unsigned long ulBase, unsigned long ulConfig,
-                            unsigned long ulMaxWait);
-extern void EPIConfigHB16Set(unsigned long ulBase, unsigned long ulConfig,
-                             unsigned long ulMaxWait);
-extern void EPIAddressMapSet(unsigned long ulBase, unsigned long ulMap);
-extern void EPINonBlockingReadConfigure(unsigned long ulBase,
-                                        unsigned long ulChannel,
-                                        unsigned long ulDataSize,
-                                        unsigned long ulAddress);
-extern void EPINonBlockingReadStart(unsigned long ulBase,
-                                    unsigned long ulChannel,
-                                    unsigned long ulCount);
-extern void EPINonBlockingReadStop(unsigned long ulBase,
-                                   unsigned long ulChannel);
-extern unsigned long EPINonBlockingReadCount(unsigned long ulBase,
-                                             unsigned long ulChannel);
-extern unsigned long EPINonBlockingReadAvail(unsigned long ulBase);
-extern unsigned long EPINonBlockingReadGet32(unsigned long ulBase,
-                                             unsigned long ulCount,
-                                             unsigned long *pulBuf);
-extern unsigned long EPINonBlockingReadGet16(unsigned long ulBase,
-                                             unsigned long ulCount,
-                                             unsigned short *pusBuf);
-extern unsigned long EPINonBlockingReadGet8(unsigned long ulBase,
-                                            unsigned long ulCount,
-                                            unsigned char *pucBuf);
-extern void EPIFIFOConfig(unsigned long ulBase, unsigned long ulConfig);
-extern unsigned long EPIWriteFIFOCountGet(unsigned long ulBase);
-extern void EPIIntEnable(unsigned long ulBase, unsigned long ulIntFlags);
-extern void EPIIntDisable(unsigned long ulBase, unsigned long ulIntFlags);
-extern unsigned long EPIIntStatus(unsigned long ulBase, tBoolean bMasked);
-extern unsigned long EPIIntErrorStatus(unsigned long ulBase);
-extern void EPIIntErrorClear(unsigned long ulBase, unsigned long ulErrFlags);
-extern void EPIIntRegister(unsigned long ulBase, void (*pfnHandler)(void));
-extern void EPIIntUnregister(unsigned long ulBase);
-
-//*****************************************************************************
-//
 // Several EPI APIs and labels have been renamed, with the original definition
 // name being deprecated.  These defines provide backward compatibility.
 //
@@ -302,9 +254,6 @@ extern void EPIIntUnregister(unsigned long ulBase);
 #define EPI_NONMODE_DSIZE_24    EPI_GPMODE_DSIZE_24
 #define EPI_NONMODE_DSIZE_32    EPI_GPMODE_DSIZE_32
 #define EPI_NONMODE_WORD_ACCESS EPI_GPMODE_WORD_ACCESS
-
-#define EPINonBlockingWriteCount(a) EPIWriteFIFOCountGet(a)
-#define EPIConfigNoModeSet(a, b, c, d) EPIConfigGPModeSet((a), (b), (c), (d))
 #endif
 
 //*****************************************************************************

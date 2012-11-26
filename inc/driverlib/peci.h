@@ -180,57 +180,6 @@ extern "C"
 
 //*****************************************************************************
 //
-// Prototypes for the APIs.
-//
-//*****************************************************************************
-extern void PECIConfigSet(unsigned long ulBase, unsigned long ulPECIClk,
-                          unsigned long ulBaud, unsigned long ulPoll,
-                          unsigned long ulOffset, unsigned long ulRetry);
-extern void PECIConfigGet(unsigned long ulBase, unsigned long ulPECIClk,
-                          unsigned long *pulBaud, unsigned long *pulPoll,
-                          unsigned long *pulOffset, unsigned long *pulRetry);
-extern void PECIBypassEnable(unsigned long ulBase);
-extern void PECIBypassDisable(unsigned long ulBase);
-extern void PECIDomainConfigSet(unsigned long ulBase, unsigned long ulDomain,
-                                unsigned long ulHigh, unsigned long ulLow);
-extern void PECIDomainConfigGet(unsigned long ulBase, unsigned long ulDomain,
-                                unsigned long *pulHigh, unsigned long *pulLow);
-extern void PECIDomainEnable(unsigned long ulBase, unsigned long ulDomain);
-extern void PECIDomainDisable(unsigned long ulBase, unsigned long ulDomain);
-extern unsigned long PECIDomainValueGet(unsigned long ulBase,
-                                        unsigned long ulDomain);
-extern unsigned long PECIDomainMaxReadGet(unsigned long ulBase,
-                                          unsigned long ulDomain);
-extern void PECIDomainValueClear(unsigned long ulBase, unsigned long ulDomain);
-extern void PECIDomainMaxReadClear(unsigned long ulBase,
-                                   unsigned long ulDomain);
-extern void PECIIntRegister(unsigned long ulBase, void (*pfnHandler)(void));
-extern void PECIIntUnregister(unsigned long ulBase);
-extern void PECIIntEnable(unsigned long ulBase, unsigned long ulIntFlags,
-                          unsigned long ulIntMode);
-extern void PECIIntDisable(unsigned long ulBase, unsigned long ulIntFlags);
-extern unsigned long PECIIntStatus(unsigned long ulBase, tBoolean bMasked);
-extern void PECIIntClear(unsigned long ulBase, unsigned long ulIntFlags);
-extern void PECIAdvCmdSend(unsigned long ulBase, unsigned char ucCmd,
-                           unsigned char ucHidRe, unsigned char ucDomain,
-                           unsigned char ucProcAdd, unsigned long ulArg,
-                           unsigned char ucSize, unsigned long ulData0,
-                           unsigned long ulData1);
-extern unsigned long PECIAdvCmdSendNonBlocking(unsigned long ulBase,
-                                               unsigned char ucCmd,
-                                               unsigned char ucHidRe,
-                                               unsigned char ucDomain,
-                                               unsigned char ucProcAdd,
-                                               unsigned long ulArg,
-                                               unsigned char ucSize,
-                                               unsigned long ulData0,
-                                               unsigned long ulData1);
-extern unsigned long PECIAdvCmdStatusGet(unsigned long ulBase,
-                                         unsigned long *pulData0,
-                                         unsigned long *pulData1);
-
-//*****************************************************************************
-//
 // Mark the end of the C bindings section for C++ compilers.
 //
 //*****************************************************************************

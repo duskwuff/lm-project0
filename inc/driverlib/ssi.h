@@ -97,50 +97,6 @@ extern "C"
 
 //*****************************************************************************
 //
-// Prototypes for the APIs.
-//
-//*****************************************************************************
-extern void SSIConfigSetExpClk(unsigned long ulBase, unsigned long ulSSIClk,
-                               unsigned long ulProtocol, unsigned long ulMode,
-                               unsigned long ulBitRate,
-                               unsigned long ulDataWidth);
-extern void SSIDataGet(unsigned long ulBase, unsigned long *pulData);
-extern long SSIDataGetNonBlocking(unsigned long ulBase,
-                                  unsigned long *pulData);
-extern void SSIDataPut(unsigned long ulBase, unsigned long ulData);
-extern long SSIDataPutNonBlocking(unsigned long ulBase, unsigned long ulData);
-extern void SSIDisable(unsigned long ulBase);
-extern void SSIEnable(unsigned long ulBase);
-extern void SSIIntClear(unsigned long ulBase, unsigned long ulIntFlags);
-extern void SSIIntDisable(unsigned long ulBase, unsigned long ulIntFlags);
-extern void SSIIntEnable(unsigned long ulBase, unsigned long ulIntFlags);
-extern void SSIIntRegister(unsigned long ulBase, void(*pfnHandler)(void));
-extern unsigned long SSIIntStatus(unsigned long ulBase, tBoolean bMasked);
-extern void SSIIntUnregister(unsigned long ulBase);
-extern void SSIDMAEnable(unsigned long ulBase, unsigned long ulDMAFlags);
-extern void SSIDMADisable(unsigned long ulBase, unsigned long ulDMAFlags);
-extern tBoolean SSIBusy(unsigned long ulBase);
-extern void SSIClockSourceSet(unsigned long ulBase, unsigned long ulSource);
-extern unsigned long SSIClockSourceGet(unsigned long ulBase);
-
-//*****************************************************************************
-//
-// Several SSI APIs have been renamed, with the original function name being
-// deprecated.  These defines provide backward compatibility.
-//
-//*****************************************************************************
-#ifndef DEPRECATED
-#include "driverlib/sysctl.h"
-#define SSIConfig(a, b, c, d, e)                            \
-        SSIConfigSetExpClk(a, SysCtlClockGet(), b, c, d, e)
-#define SSIDataNonBlockingGet(a, b) \
-        SSIDataGetNonBlocking(a, b)
-#define SSIDataNonBlockingPut(a, b) \
-        SSIDataPutNonBlocking(a, b)
-#endif
-
-//*****************************************************************************
-//
 // Mark the end of the C bindings section for C++ compilers.
 //
 //*****************************************************************************

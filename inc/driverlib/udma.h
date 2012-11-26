@@ -704,47 +704,6 @@ tDMAControlTable;
 
 //*****************************************************************************
 //
-// API Function prototypes
-//
-//*****************************************************************************
-extern void uDMAEnable(void);
-extern void uDMADisable(void);
-extern unsigned long uDMAErrorStatusGet(void);
-extern void uDMAErrorStatusClear(void);
-extern void uDMAChannelEnable(unsigned long ulChannelNum);
-extern void uDMAChannelDisable(unsigned long ulChannelNum);
-extern tBoolean uDMAChannelIsEnabled(unsigned long ulChannelNum);
-extern void uDMAControlBaseSet(void *pControlTable);
-extern void *uDMAControlBaseGet(void);
-extern void *uDMAControlAlternateBaseGet(void);
-extern void uDMAChannelRequest(unsigned long ulChannelNum);
-extern void uDMAChannelAttributeEnable(unsigned long ulChannelNum,
-                                       unsigned long ulAttr);
-extern void uDMAChannelAttributeDisable(unsigned long ulChannelNum,
-                                        unsigned long ulAttr);
-extern unsigned long uDMAChannelAttributeGet(unsigned long ulChannelNum);
-extern void uDMAChannelControlSet(unsigned long ulChannelStructIndex,
-                                  unsigned long ulControl);
-extern void uDMAChannelTransferSet(unsigned long ulChannelStructIndex,
-                                   unsigned long ulMode, void *pvSrcAddr,
-                                   void *pvDstAddr,
-                                   unsigned long ulTransferSize);
-extern void uDMAChannelScatterGatherSet(unsigned long ulChannelNum,
-                                        unsigned ulTaskCount, void *pvTaskList,
-                                        unsigned long ulIsPeriphSG);
-extern unsigned long uDMAChannelSizeGet(unsigned long ulChannelStructIndex);
-extern unsigned long uDMAChannelModeGet(unsigned long ulChannelStructIndex);
-extern void uDMAIntRegister(unsigned long ulIntChannel,
-                            void (*pfnHandler)(void));
-extern void uDMAIntUnregister(unsigned long ulIntChannel);
-extern void uDMAChannelSelectDefault(unsigned long ulDefPeriphs);
-extern void uDMAChannelSelectSecondary(unsigned long ulSecPeriphs);
-extern unsigned long uDMAIntStatus(void);
-extern void uDMAIntClear(unsigned long ulChanMask);
-extern void uDMAChannelAssign(unsigned long ulMapping);
-
-//*****************************************************************************
-//
 // Mark the end of the C bindings section for C++ compilers.
 //
 //*****************************************************************************

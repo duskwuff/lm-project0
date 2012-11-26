@@ -116,25 +116,6 @@ extern "C"
 
 //*****************************************************************************
 //
-// Prototypes for the APIs.
-//
-//*****************************************************************************
-extern void ComparatorConfigure(unsigned long ulBase, unsigned long ulComp,
-                                unsigned long ulConfig);
-extern void ComparatorRefSet(unsigned long ulBase, unsigned long ulRef);
-extern tBoolean ComparatorValueGet(unsigned long ulBase, unsigned long ulComp);
-extern void ComparatorIntRegister(unsigned long ulBase, unsigned long ulComp,
-                                  void (*pfnHandler)(void));
-extern void ComparatorIntUnregister(unsigned long ulBase,
-                                    unsigned long ulComp);
-extern void ComparatorIntEnable(unsigned long ulBase, unsigned long ulComp);
-extern void ComparatorIntDisable(unsigned long ulBase, unsigned long ulComp);
-extern tBoolean ComparatorIntStatus(unsigned long ulBase, unsigned long ulComp,
-                                    tBoolean bMasked);
-extern void ComparatorIntClear(unsigned long ulBase, unsigned long ulComp);
-
-//*****************************************************************************
-//
 // Mark the end of the C bindings section for C++ compilers.
 //
 //*****************************************************************************

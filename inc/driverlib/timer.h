@@ -150,68 +150,6 @@ extern "C"
 
 //*****************************************************************************
 //
-// Prototypes for the APIs.
-//
-//*****************************************************************************
-extern void TimerEnable(unsigned long ulBase, unsigned long ulTimer);
-extern void TimerDisable(unsigned long ulBase, unsigned long ulTimer);
-extern void TimerConfigure(unsigned long ulBase, unsigned long ulConfig);
-extern void TimerControlLevel(unsigned long ulBase, unsigned long ulTimer,
-                              tBoolean bInvert);
-extern void TimerControlTrigger(unsigned long ulBase, unsigned long ulTimer,
-                                tBoolean bEnable);
-extern void TimerControlEvent(unsigned long ulBase, unsigned long ulTimer,
-                              unsigned long ulEvent);
-extern void TimerControlStall(unsigned long ulBase, unsigned long ulTimer,
-                              tBoolean bStall);
-extern void TimerControlWaitOnTrigger(unsigned long ulBase,
-                                      unsigned long ulTimer,
-                                      tBoolean bWait);
-extern void TimerRTCEnable(unsigned long ulBase);
-extern void TimerRTCDisable(unsigned long ulBase);
-extern void TimerPrescaleSet(unsigned long ulBase, unsigned long ulTimer,
-                             unsigned long ulValue);
-extern unsigned long TimerPrescaleGet(unsigned long ulBase,
-                                      unsigned long ulTimer);
-extern void TimerPrescaleMatchSet(unsigned long ulBase, unsigned long ulTimer,
-                                  unsigned long ulValue);
-extern unsigned long TimerPrescaleMatchGet(unsigned long ulBase,
-                                           unsigned long ulTimer);
-extern void TimerLoadSet(unsigned long ulBase, unsigned long ulTimer,
-                         unsigned long ulValue);
-extern unsigned long TimerLoadGet(unsigned long ulBase, unsigned long ulTimer);
-extern void TimerLoadSet64(unsigned long ulBase, unsigned long long ullValue);
-extern unsigned long long TimerLoadGet64(unsigned long ulBase);
-extern unsigned long TimerValueGet(unsigned long ulBase,
-                                   unsigned long ulTimer);
-extern unsigned long long TimerValueGet64(unsigned long ulBase);
-extern void TimerMatchSet(unsigned long ulBase, unsigned long ulTimer,
-                          unsigned long ulValue);
-extern unsigned long TimerMatchGet(unsigned long ulBase,
-                                   unsigned long ulTimer);
-extern void TimerMatchSet64(unsigned long ulBase, unsigned long long ullValue);
-extern unsigned long long TimerMatchGet64(unsigned long ulBase);
-extern void TimerIntRegister(unsigned long ulBase, unsigned long ulTimer,
-                             void (*pfnHandler)(void));
-extern void TimerIntUnregister(unsigned long ulBase, unsigned long ulTimer);
-extern void TimerIntEnable(unsigned long ulBase, unsigned long ulIntFlags);
-extern void TimerIntDisable(unsigned long ulBase, unsigned long ulIntFlags);
-extern unsigned long TimerIntStatus(unsigned long ulBase, tBoolean bMasked);
-extern void TimerIntClear(unsigned long ulBase, unsigned long ulIntFlags);
-extern void TimerSynchronize(unsigned long ulBase, unsigned long ulTimers);
-
-//*****************************************************************************
-//
-// TimerQuiesce() has been deprecated.  SysCtlPeripheralReset() should be used
-// instead to return the timer to its reset state.
-//
-//*****************************************************************************
-#ifndef DEPRECATED
-extern void TimerQuiesce(unsigned long ulBase);
-#endif
-
-//*****************************************************************************
-//
 // These values for TimerConfigure have been deprecated.
 //
 //*****************************************************************************

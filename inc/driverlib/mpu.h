@@ -135,23 +135,6 @@ extern "C"
 
 //*****************************************************************************
 //
-// API Function prototypes
-//
-//*****************************************************************************
-extern void MPUEnable(unsigned long ulMPUConfig);
-extern void MPUDisable(void);
-extern unsigned long MPURegionCountGet(void);
-extern void MPURegionEnable(unsigned long ulRegion);
-extern void MPURegionDisable(unsigned long ulRegion);
-extern void MPURegionSet(unsigned long ulRegion, unsigned long ulAddr,
-                         unsigned long ulFlags);
-extern void MPURegionGet(unsigned long ulRegion, unsigned long *pulAddr,
-                         unsigned long *pulFlags);
-extern void MPUIntRegister(void (*pfnHandler)(void));
-extern void MPUIntUnregister(void);
-
-//*****************************************************************************
-//
 // Mark the end of the C bindings section for C++ compilers.
 //
 //*****************************************************************************
