@@ -1,8 +1,7 @@
-#include <ti/hw_nvic.h>
-#include <ti/hw_types.h>
-#include <ti/hw_memmap.h>
-#include <ti/hw_sysctl.h>
-#include <ti/hw_gpio.h>
+#include <stdio.h>
+#include <stdint.h>
+#include <romlib.h>
+#include <driverlib/sysctl.h>
 
 extern int main(void);
 
@@ -38,6 +37,13 @@ void _start(void)
             i < __load_info.bss.len;
             i += sizeof(unsigned long)
         ) *dst++ = 0;
+
+    SysCtlClockSet(
+            SYSCTL_SYSDIV_4 | SYSCTL_USE_PLL |
+            SYSCTL_XTAL_16MHZ | SYSCTL_OSC_MAIN
+            );
+
+    stdio_init();
 
     main();
     __abort();

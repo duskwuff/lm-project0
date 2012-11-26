@@ -13,6 +13,8 @@
 
 #include <stdarg.h>
 
+void stdio_init(void);
+
 int getchar(void);
 int putchar(int);
 
