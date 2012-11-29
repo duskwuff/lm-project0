@@ -15,7 +15,7 @@ CFLAGS = ${CPUFLAGS} -Os -std=gnu99 -Wall -ggdb \
 LDFLAGS = -T stellaris.ld -nostdlib
 
 TARGET = main
-OBJECTS = startup.o main.o stdio.o string.o sd.o
+OBJECTS = startup.o main.o stdio.o string.o sd.o crc.o
 LIBS =
 
 default: $(TARGET).bin

@@ -16,7 +16,6 @@ int main(void)
 
     sd_card_init();
 
-
     puts("Okay, I'm done for now\n\n");
     return 0;
 }

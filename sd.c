@@ -9,6 +9,8 @@
 #include <driverlib/gpio.h>
 #include <driverlib/ssi.h>
 
+#include "crc.h"
+
 #define SD_PERIPH_GPIO  SYSCTL_PERIPH_GPIOD
 #define SD_PERIPH_SSI   SYSCTL_PERIPH_SSI3
 #define SD_BASE_GPIO    GPIO_PORTD_BASE
@@ -24,42 +26,52 @@
 #define SD_CFG_RX       GPIO_PD2_SSI3RX
 #define SD_CFG_TX       GPIO_PD3_SSI3TX
 
-uint8_t sdbuf[512];
-
-const uint8_t crc7_syndrome_table[256] = {
-    0x00, 0x09, 0x12, 0x1b, 0x24, 0x2d, 0x36, 0x3f,
-    0x48, 0x41, 0x5a, 0x53, 0x6c, 0x65, 0x7e, 0x77,
-    0x19, 0x10, 0x0b, 0x02, 0x3d, 0x34, 0x2f, 0x26,
-    0x51, 0x58, 0x43, 0x4a, 0x75, 0x7c, 0x67, 0x6e,
-    0x32, 0x3b, 0x20, 0x29, 0x16, 0x1f, 0x04, 0x0d,
-    0x7a, 0x73, 0x68, 0x61, 0x5e, 0x57, 0x4c, 0x45,
-    0x2b, 0x22, 0x39, 0x30, 0x0f, 0x06, 0x1d, 0x14,
-    0x63, 0x6a, 0x71, 0x78, 0x47, 0x4e, 0x55, 0x5c,
-    0x64, 0x6d, 0x76, 0x7f, 0x40, 0x49, 0x52, 0x5b,
-    0x2c, 0x25, 0x3e, 0x37, 0x08, 0x01, 0x1a, 0x13,
-    0x7d, 0x74, 0x6f, 0x66, 0x59, 0x50, 0x4b, 0x42,
-    0x35, 0x3c, 0x27, 0x2e, 0x11, 0x18, 0x03, 0x0a,
-    0x56, 0x5f, 0x44, 0x4d, 0x72, 0x7b, 0x60, 0x69,
-    0x1e, 0x17, 0x0c, 0x05, 0x3a, 0x33, 0x28, 0x21,
-    0x4f, 0x46, 0x5d, 0x54, 0x6b, 0x62, 0x79, 0x70,
-    0x07, 0x0e, 0x15, 0x1c, 0x23, 0x2a, 0x31, 0x38,
-    0x41, 0x48, 0x53, 0x5a, 0x65, 0x6c, 0x77, 0x7e,
-    0x09, 0x00, 0x1b, 0x12, 0x2d, 0x24, 0x3f, 0x36,
-    0x58, 0x51, 0x4a, 0x43, 0x7c, 0x75, 0x6e, 0x67,
-    0x10, 0x19, 0x02, 0x0b, 0x34, 0x3d, 0x26, 0x2f,
-    0x73, 0x7a, 0x61, 0x68, 0x57, 0x5e, 0x45, 0x4c,
-    0x3b, 0x32, 0x29, 0x20, 0x1f, 0x16, 0x0d, 0x04,
-    0x6a, 0x63, 0x78, 0x71, 0x4e, 0x47, 0x5c, 0x55,
-    0x22, 0x2b, 0x30, 0x39, 0x06, 0x0f, 0x14, 0x1d,
-    0x25, 0x2c, 0x37, 0x3e, 0x01, 0x08, 0x13, 0x1a,
-    0x6d, 0x64, 0x7f, 0x76, 0x49, 0x40, 0x5b, 0x52,
-    0x3c, 0x35, 0x2e, 0x27, 0x18, 0x11, 0x0a, 0x03,
-    0x74, 0x7d, 0x66, 0x6f, 0x50, 0x59, 0x42, 0x4b,
-    0x17, 0x1e, 0x05, 0x0c, 0x33, 0x3a, 0x21, 0x28,
-    0x5f, 0x56, 0x4d, 0x44, 0x7b, 0x72, 0x69, 0x60,
-    0x0e, 0x07, 0x1c, 0x15, 0x2a, 0x23, 0x38, 0x31,
-    0x46, 0x4f, 0x54, 0x5d, 0x62, 0x6b, 0x70, 0x79
+enum {
+    SD_CMD_GO_IDLE_STATE            = 0,
+    SD_CMD_SEND_OP_COND             = 1,
+    SD_CMD_SWITCH_FUNC              = 6,
+    SD_CMD_SEND_IF_COND             = 8,
+    SD_CMD_SEND_CSD                 = 9,
+    SD_CMD_SEND_CID                 = 10,
+    SD_CMD_STOP_TRANSMISSION        = 12,
+    SD_CMD_SEND_STATUS              = 13,
+    SD_CMD_SET_BLOCKLEN             = 16,
+    SD_CMD_READ_SINGLE_BLOCK        = 17,
+    SD_CMD_READ_MULTIPLE_BLOCK      = 18,
+    SD_CMD_WRITE_BLOCK              = 24,
+    SD_CMD_WRITE_MULTIPLE_BLOCK     = 25,
+    SD_CMD_PROGRAM_CSD              = 27,
+    SD_CMD_SET_WRITE_PROT           = 28,
+    SD_CMD_CLR_WRITE_PROT           = 29,
+    SD_CMD_SEND_WRITE_PROT          = 30,
+    SD_CMD_ERASE_WR_BLK_START_ADDR  = 32,
+    SD_CMD_ERASE_WR_BLK_END_ADDR    = 33,
+    SD_CMD_ERASE                    = 38,
+    SD_CMD_LOCK_UNLOCK              = 42,
+    SD_CMD_APP_CMD                  = 55,
+    SD_CMD_GEN_CMD                  = 56,
+    SD_CMD_READ_OCR                 = 58,
+    SD_CMD_CRC_ON_OFF               = 59,
 };
+
+enum {
+    SD_ACMD_SD_STATUS               = 13,
+    SD_ACMD_SEND_NUM_WR_BLOCKS      = 22,
+    SD_ACMD_SET_WR_BLK_ERASE_COUNT  = 23,
+    SD_ACMD_SD_SEND_OP_COND         = 41,
+    SD_ACMD_SET_CLR_CARD_DETECT     = 42,
+    SD_ACMD_SEND_SCR                = 51,
+};
+
+enum {
+    // These names are somewhat made-up (by me)
+    SD_OCR_VOLTAGE_1V8              = 1UL << 7,
+    SD_OCR_VOLTAGE_1V8_CAPABLE      = 1UL << 24,
+    SD_OCR_HIGH_CAPACITY            = 1UL << 30,
+    SD_OCR_READY                    = 1UL << 31,
+};
+
+uint8_t sdbuf[512];
 
 
 static uint8_t SPIxfer(int send)
@@ -70,49 +82,77 @@ static uint8_t SPIxfer(int send)
     return result;
 }
 
-static uint8_t SPIsend(uint8_t send, uint8_t crc)
+static uint16_t SPIread16(void)
 {
-    uint32_t result;
-    SSIDataPut(SD_BASE_SSI, send);
-    SSIDataGet(SD_BASE_SSI, &result);
-    return crc7_syndrome_table[(crc << 1) ^ send];
+    uint16_t r = 0;
+    r |= SPIxfer(0xff) << 8;
+    r |= SPIxfer(0xff) << 0;
+    return r;
 }
 
-void SPIreaddata(int len)
+static uint32_t SPIread32(void)
+{
+    uint32_t r = 0;
+    r |= SPIxfer(0xff) << 24;
+    r |= SPIxfer(0xff) << 16;
+    r |= SPIxfer(0xff) << 8;
+    r |= SPIxfer(0xff) << 0;
+    return r;
+}
+
+uint16_t SPIreaddata(int len)
 {
     int result;
+    int tries = 1000;
     do {
         result = SPIxfer(0xff);
+        if (tries-- <= 0) return -1;
     } while (result != 0xfe);
-    for (int i = 0; i < len; i++)
-        sdbuf[i] = SPIxfer(0xff);
+
+    uint16_t crc = 0;
+    for (int i = 0; i < len; i++) {
+        uint8_t dat = sdbuf[i] = SPIxfer(0xff);
+        crc16_update(crc, dat);
+    }
+
+    uint16_t recv_crc = SPIread16();
+
+    printf("Calculated CRC %04x, received CRC %04x\n", crc, recv_crc);
+    return crc != recv_crc;
 }
 
-static int doCardCommand(uint8_t cmd, uint32_t arg)
+static int doCardCmd(uint8_t cmd, uint32_t arg)
 {
     int result;
-    int tries = 0;
+    int tries = 1000;
 
     do {
         result = SPIxfer(0xff);
-        if (tries++ > 100) return -1;
+        if (tries-- <= 0) return -1;
     } while(result != 0xff);
 
     uint8_t crc = 0;
 
-    crc = SPIsend(cmd | 0x40, crc);
-    crc = SPIsend(arg >> 24, crc);
-    crc = SPIsend(arg >> 16, crc);
-    crc = SPIsend(arg >> 8, crc);
-    crc = SPIsend(arg, crc);
-    SPIsend(crc, crc);
+    SPIxfer(crc7_update(&crc, cmd | 0x40));
+    SPIxfer(crc7_update(&crc, arg >> 24));
+    SPIxfer(crc7_update(&crc, arg >> 16));
+    SPIxfer(crc7_update(&crc, arg >> 8));
+    SPIxfer(crc7_update(&crc, arg));
+    SPIxfer(crc | 1);
 
     do {
         result = SPIxfer(0xff);
-        if (tries++ > 100) return -1;
+        if (tries-- <= 0) return -1;
     } while (result & 0x80);
 
     return result;
+}
+
+static int doCardAcmd(uint8_t cmd, uint32_t arg)
+{
+    int result = doCardCmd(SD_CMD_APP_CMD, 0);
+    if (result < 0) return result;
+    return doCardCmd(cmd, arg);
 }
 
 void sd_init(void)
@@ -163,27 +203,73 @@ void sd_card_init(void)
     GPIOPinWrite(GPIO_PORTD_BASE, SD_PIN_CS, SD_PIN_CS);
     for (int i = 0; i < 10; i++)
         SPIxfer(0xff);
+    SysCtlDelay(200);
     GPIOPinWrite(GPIO_PORTD_BASE, SD_PIN_CS, 0);
+    SysCtlDelay(200);
 
-    result = doCardCommand(0, 0);
+    result = doCardCmd(SD_CMD_GO_IDLE_STATE, 0);
+    printf("GO_IDLE_STATE -> %02x\n", result);
+    if (result == -1) return;
 
-    printf("Resetting card -> %02x\n", result);
+    result = doCardCmd(SD_CMD_SEND_IF_COND, 0x1A5);
+    printf("SEND_IF_COND(1A5) = %02x\n", result);
+    if (result == -1) return;
+
+    uint32_t recv_cond = SPIread32();
+    printf("Condition: %02x%08x\n", result, recv_cond);
+    if ((recv_cond & 0x1A5) != 0x1A5) return;
+
+    printf("Waiting for card init");
+    int init_tries = 1500; // I've frequently seen 800
+    do {
+        putchar('.');
+        result = doCardAcmd(SD_ACMD_SD_SEND_OP_COND, 1UL << 30);
+        if (init_tries-- <= 0) {
+            printf(" card is not initializing.\n");
+            return;
+        }
+    } while (result == 0x01);
+    if (result != 0x00) {
+        printf("Error: %02x\n", result);
+        return;
+    } else
+        printf(" OK\n");
+
+    result = doCardCmd(SD_CMD_READ_OCR, 0);
+    uint32_t card_ocr = SPIread32();
+    printf("OCR = %08x\n", card_ocr);
+
+    /*
+    int init_tries = 2500; // I've frequently seen ~800!
     printf("Waiting for card init.");
     do {
         printf(".");
-    } while (doCardCommand(1, 0) == 0x01);
-    printf(" OK\n");
+        result = doCardCmd(1, 0);
+        if (init_tries-- <= 0) {
+            printf(" card is not initializing.\n");
+            return;
+        }
+    } while (result == 0x01);
 
-    result = doCardCommand(16, 512);
+    if (result != 0x00) {
+        printf("Error: %02x\n", result);
+        return;
+    } else
+        printf(" OK\n");
+
+    result = doCardCmd(16, 512);
     printf("CMD16(512) => %x\n", result);
 
-    result = doCardCommand(17, 0);
+    result = doCardCmd(17, 0);
     printf("CMD17(0) => %x\n", result);
     if (result == 0) {
-        SPIreaddata(512);
-        for (int i = 0; i < 512; i++) {
-            printf("%02x%c", sdbuf[i], (i & 15) == 15 ? '\n' : ' ');
+        uint16_t crc;
+        if (SPIreaddata(512) == 0) {
+            for (int i = 0; i < 512; i++) {
+                printf("%02x%c", sdbuf[i], (i & 15) == 15 ? '\n' : ' ');
+            }
         }
     }
+    */
 }
 
